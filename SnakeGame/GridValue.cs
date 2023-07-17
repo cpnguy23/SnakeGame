@@ -6,7 +6,9 @@ using System.Threading.Tasks;
 
 namespace SnakeGame
 {
-    internal class GridValue
+    public enum GridValue
     {
+        /* this will contain the grid, the snake, and the food.
+            this will also contain outside, since that is out of boundaries */
     }
 }
