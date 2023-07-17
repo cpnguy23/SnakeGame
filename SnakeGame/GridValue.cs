@@ -10,5 +10,12 @@ namespace SnakeGame
     {
         /* this will contain the grid, the snake, and the food.
             this will also contain outside, since that is out of boundaries */
+
+        /* u can just write names in here and it'll be fine*/
+
+        Empty,
+        Food,
+        Snake,
+        Outside
     }
 }
