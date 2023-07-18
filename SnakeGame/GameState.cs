@@ -32,6 +32,7 @@ namespace SnakeGame
             Dir = Direction.Right;                                                        /* snake will starting on the right right*/
 
             AddSnake();
+            AddFood();                                                                    
         }
 
         /* MAKING THE SNAKE */
@@ -64,7 +65,69 @@ namespace SnakeGame
 
         private void AddFood()
         {
-            List<Position> empty = new List<Position>(EmptyPositions());
+            List<Position> empty = new List<Position>(EmptyPosition());
+
+            if (empty.Count == 0)
+            {
+                return;
+            }
+
+            Position pos = empty[random.Next(empty.Count)];
+            Grid[pos.Row, pos.Col] = GridValue.Food;
+        }
+
+        /* SNAKE WITH LINKED LISTS */
+        public Position HeadPosition()
+        {
+            return snakePosition.First.Value;
+        }
+
+        public Position TailPosition()
+        {
+            return snakePosition.Last.Value;
+        }
+
+        public IEnumerable<Position> SnakePosition()
+        {
+            return snakePosition;
+        }
+
+        /* modifying snake */
+
+        private void AddHead(Position pos)
+        {
+            snakePosition.AddFirst(pos);
+            Grid[pos.Row, pos.Col] = GridValue.Snake;
+        }
+
+        private void RemoveTail()
+        {
+            Position tail = snakePosition.Last.Value;
+            Grid[tail.Row, tail.Col] = GridValue.Empty;
+            snakePosition.RemoveLast();
+        }
+
+        /* modifying game state */
+
+        public void ChangeDir(Direction dir)
+        {
+            Dir = dir;
+        }
+
+        /* moving snake, which we are making only head and tail move */
+        
+        private bool OutsideGrid(Position pos)                                              /* determines if out of grid*/
+        {
+            return pos.Row < 0 || pos.Row >= Rows || pos.Col < 0 || pos.Col >= Cols;
+        }
+
+        private GridValue WillHit(Position newHeadPos)                                     /* determine if the head hits out of */
+        {                                                                                  /* bounds */
+            if (OutsideGrid(newHeadPos))
+            {
+                return GridValue.Outside;                                                  /* left off at  26:51*/
+            }
+            return Grid[newHeadPos.Row, newHeadPos.Col];
         }
     }                                                                                           
 }
