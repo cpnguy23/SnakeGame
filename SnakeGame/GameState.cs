@@ -30,6 +30,8 @@ namespace SnakeGame
             Cols = cols;
             Grid = new GridValue[rows, cols];
             Dir = Direction.Right;                                                        /* snake will starting on the right right*/
+
+            AddSnake();
         }
 
         /* MAKING THE SNAKE */
@@ -41,7 +43,28 @@ namespace SnakeGame
             for (int  c= 1; c <= 3; c++)
             {
                 Grid[r, c] = GridValue.Snake;
+                snakePosition.AddFirst(new Position(r, c));                               /* we are adding snake first */
+
             }
+        }
+
+        private IEnumerable<Position> EmptyPosition()                                   /* looping through all rows and columns */
+        {
+            for (int r = 0; r < Rows; r++)
+            {
+                for (int c = 0; c < Cols; c++)
+                {
+                    if (Grid[r, c] == GridValue.Empty)
+                    {
+                        yield return new Position(r, c);                                /* provides next value or signal end of                                                                       iteration*/
+                    }
+                }
+            }
+        }
+
+        private void AddFood()
+        {
+            List<Position> empty = new List<Position>(EmptyPositions());
         }
     }                                                                                           
 }
