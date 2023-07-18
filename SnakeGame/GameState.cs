@@ -127,7 +127,37 @@ namespace SnakeGame
             {
                 return GridValue.Outside;                                                  /* left off at  26:51*/
             }
+            
+             if (newHeadPos == TailPosition())                                             /* head moves, so tail has to move? */
+            {                                                                              /* idk how to explain but i know */
+                return GridValue.Empty;
+            }
+
             return Grid[newHeadPos.Row, newHeadPos.Col];
+        }
+
+        public void Move()                                                                 /* moving snake in specific direction */
+        {
+            Position newHeadPos = HeadPosition().Translate(Dir);
+            GridValue hit = WillHit(newHeadPos);                                           /* checks what will hit */
+
+            if (hit == GridValue.Outside || hit == GridValue.Snake)
+            {
+                GameOver = true;
+            }
+
+            else if (hit == GridValue.Empty)
+            {
+                RemoveTail();
+                AddHead(newHeadPos);
+            }
+
+            else if (hit  == GridValue.Food)
+            {
+                AddHead(newHeadPos);
+                Score++;
+            }
+
         }
     }                                                                                           
 }
