@@ -4,7 +4,7 @@ using System.Windows.Media.Imaging;
 
 namespace SnakeGame
 {
-    public static class images                                                 /* holds all imported images, so it will be static */
+    public static class Images                                                 /* holds all imported images, so it will be static */
     {
         public readonly static ImageSource Empty = LoadImage("Empty.png");     /* pulling up all images from assets */
         public readonly static ImageSource Body = LoadImage("Body.png");

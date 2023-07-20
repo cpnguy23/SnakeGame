@@ -1,17 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace SnakeGame
 {
@@ -21,16 +9,18 @@ namespace SnakeGame
     public partial class MainWindow : Window
     {
         private readonly int rows = 15, cols = 15;                  // two variables for rows and columns
-        private readonly Image[,] gridImages;
+        private readonly Image[,] gridImages;                       //2d image array for image controls, helps access image for a given position
+        
         public MainWindow()
         {
             InitializeComponent();
+            gridImages = SetUpGrid();
         }
 
-        private Image[,] SetupGrid()                                //setting up 2d array
+        private Image[,] SetUpGrid()
         {
             Image[,] images = new Image[rows, cols];
-            GameGrid.Rows = rows;
+            GameGrid.Rows = rows;                           /* gamegrid == mainwindow.xaml */
             GameGrid.Columns = cols;
 
             for (int r = 0; r < rows; r++)
@@ -39,13 +29,11 @@ namespace SnakeGame
                 {
                     Image image = new Image
                     {
-                        Source = images.Empty
+                        Source = Images.Empty
                     };
 
-                    images[r, c] = image;
-                    GameGrid.Children.Add(image);
-                }
 
+                }
 
             }
 
